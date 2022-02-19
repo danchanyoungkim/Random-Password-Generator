@@ -1,61 +1,59 @@
-// ===================
-//GLOBAL VARIABLES
-// ===================
-// STEP 1
-// Create special character set using array
-// Create numeric character set using array
-// Create uppercase character set using array
-// Create lowercase character set using array
+let numericalChar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+let uppercaseChar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+let lowercaseChar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+let specialChar = [".", ":", ";", "?", "!", "/", "-", "_", "~", "@", "#", "$", "%", ","];
 
-//STEP 2
-// Create a variable for the length of password
-// Create variables to store user's choice for special chars, numbers, uppercase, and lowercase chars
-// Create a result variable to store password chars chosen from the array pool
+function generatePassword() {
+  let passwordChar;
+  
+  let passwordLength = window.prompt("Between 8 to 128, how long do you want your password?");
+  
+  if (passwordLength < 8 || passwordLength > 128) {
+    alert("Must be within the 8 to 128 character range!");
+    return generatePassword();
+  } else {
 
-// STEP 3 (generatePassword)
-// Collect user input for password length using window prompt
-// Collect user options for special chars, numeric numbers, uppercase, and lowercase using window confirm
+  let numericalCharChoice = confirm("Would you like numerical characters in your password?");
+  if (numericalCharChoice) {
+    passwordChar += numericalChar;
+  };
+  
+  let uppercaseCharChoice = confirm("Would you like upper case characters in your password?");
+  if (uppercaseCharChoice) {
+    passwordChar += uppercaseChar;
+  };
+  
+  let lowercaseCharChoice = confirm("Would you like lower case characters in your password?");
+  if (lowercaseCharChoice) {
+    passwordChar += lowercaseChar;
+  };
 
-// STEP 4 (google)
-// Creates a pool containing all characters in the chosen character seets using array
+  let specialCharChoice = confirm("Would you like special characters in your password?");
+  if (specialCharChoice) {
+    passwordChar += specialChar;
+  };
 
-// Create for loop iterated with length input by user
-/* 
-  For each iteration
-    Create a random index from the array pool
-    Append the char chosen with the random index form the array pool to the password reult variable
-*/
+  if (passwordChar.length === 0) {
+    alert("Please choose one character type at the very least!")
+    return generatePassword();
+  }
+  }
 
-
-// STEP 5
-// Check to make sure we include all the characters from the character sets user choose to include in the password
-
-// STEP 6
-// Return the result to the caller
-
-
-
-
-
-
-function generatePassword(){
-  var passwordStr;
-
+  let passwordStr = 0;
+  for (let i = 0; i < passwordLength; i++) {
+    passwordStr += passwordChar[Math.floor(Math.random() * passwordChar.length)];
+  }
   return passwordStr;
 }
 
+let generateBtn = document.querySelector("#generate");
 
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+    let pw = generatePassword();
+    let passwordText = document.querySelector("#password");
+    passwordText.value = pw;
 }
-
-// Add event listener to generate button
+  
 generateBtn.addEventListener("click", writePassword);
